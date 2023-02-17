@@ -1,5 +1,6 @@
 package com.example.projetojavafx;
 
+import com.example.projetojavafx.service.DepartmentService;
 import com.example.projetojavafx.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,8 +33,9 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemDepartmentAction(){
-        loadView("DepartmentList.fxml");
+        loadView2("DepartmentList.fxml");
     }
+
 
     @FXML
     public void onMenuItemAboutAction(){
@@ -64,4 +66,28 @@ public class MainViewController implements Initializable {
                     e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+    private synchronized void loadView2(String absoluteName){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            VBox newVBox = loader.load();
+
+            Scene mainScene = MainApplication.getMainScene();
+            VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+
+            Node mainMenu = mainVBox.getChildren().get(0);
+            mainVBox.getChildren().clear();
+            mainVBox.getChildren().add(mainMenu);
+            mainVBox.getChildren().addAll(newVBox.getChildren());
+
+            DepartmentListController controller = loader.getController();
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
+
+        } catch (IOException e) {
+            Alerts.showAlert("IO Exception", "Error Loading View",
+                    e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
 }
