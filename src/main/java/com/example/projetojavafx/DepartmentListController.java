@@ -5,6 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,7 +19,7 @@ public class DepartmentListController implements Initializable {
     private TableColumn<Department, Integer> tableColumnId;
 
     @FXML
-    private TableColumn<Department, String> tableColumnNamme;
+    private TableColumn<Department, String> tableColumnName;
 
     @FXML
     private Button btnNew;
@@ -29,6 +31,17 @@ public class DepartmentListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initializeNodes();
 
     }
+
+
+    private void initializeNodes() {
+        tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        Stage stage = (Stage) MainApplication.getMainScene().getWindow();
+        tableViewDepartment.prefHeightProperty().bind(stage.heightProperty());
+    }
+
 }
