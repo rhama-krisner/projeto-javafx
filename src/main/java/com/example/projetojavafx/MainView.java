@@ -1,4 +1,4 @@
 package com.example.projetojavafx;
 
-public class View {
+public class MainView {
 }
