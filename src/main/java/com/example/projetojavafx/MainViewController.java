@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class MainViewController implements Initializable {
     @FXML
@@ -27,19 +28,25 @@ public class MainViewController implements Initializable {
     private MenuItem menuItemAbout;
 
     @FXML
-    public void onMenuItemSellerAction(){
+    public void onMenuItemSellerAction() {
         System.out.println("onMenuItemSellerAction");
     }
 
     @FXML
-    public void onMenuItemDepartmentAction(){
-        loadView2("DepartmentList.fxml");
+    public void onMenuItemDepartmentAction() {
+        loadView("DepartmentList.fxml",
+                (DepartmentListController c) -> {
+                    c.setDepartmentService(new DepartmentService());
+                    c.updateTableView();
+                }
+        );
     }
 
 
     @FXML
-    public void onMenuItemAboutAction(){
-        loadView("About.fxml");
+    public void onMenuItemAboutAction() {
+        loadView("About.fxml", x -> {
+        });
     }
 
     @Override
@@ -47,8 +54,8 @@ public class MainViewController implements Initializable {
 
     }
 
-    private synchronized void loadView(String absoluteName){
-        try{
+    private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             VBox newVBox = loader.load();
 
@@ -60,6 +67,8 @@ public class MainViewController implements Initializable {
             mainVBox.getChildren().add(mainMenu);
             mainVBox.getChildren().addAll(newVBox.getChildren());
 
+            T controller = loader.getController();
+            initializingAction.accept(controller);
 
         } catch (IOException e) {
             Alerts.showAlert("IO Exception", "Error Loading View",
@@ -67,27 +76,5 @@ public class MainViewController implements Initializable {
         }
     }
 
-    private synchronized void loadView2(String absoluteName){
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-            VBox newVBox = loader.load();
-
-            Scene mainScene = MainApplication.getMainScene();
-            VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
-
-            Node mainMenu = mainVBox.getChildren().get(0);
-            mainVBox.getChildren().clear();
-            mainVBox.getChildren().add(mainMenu);
-            mainVBox.getChildren().addAll(newVBox.getChildren());
-
-            DepartmentListController controller = loader.getController();
-            controller.setDepartmentService(new DepartmentService());
-            controller.updateTableView();
-
-        } catch (IOException e) {
-            Alerts.showAlert("IO Exception", "Error Loading View",
-                    e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
 
 }

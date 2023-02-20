@@ -13,6 +13,8 @@ public class DepartmentService {
         list.add(new Department(3, "Celulares"));
         list.add(new Department(4, "Ecritório"));
         list.add(new Department(5, "Papelaria"));
+        list.add(new Department(6, "TV e Vídeo"));
+
         return list;
     }
 }
