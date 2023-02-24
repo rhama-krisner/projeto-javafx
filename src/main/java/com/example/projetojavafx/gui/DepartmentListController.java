@@ -1,5 +1,7 @@
-package com.example.projetojavafx;
+package com.example.projetojavafx.gui;
 
+import com.example.projetojavafx.Application;
+import com.example.projetojavafx.model.Department;
 import com.example.projetojavafx.service.DepartmentService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,7 +52,7 @@ public class DepartmentListController implements Initializable {
         tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        Stage stage = (Stage) MainApplication.getMainScene().getWindow();
+        Stage stage = (Stage) Application.getMainScene().getWindow();
         tableViewDepartment.prefHeightProperty().bind(stage.heightProperty());
     }
 

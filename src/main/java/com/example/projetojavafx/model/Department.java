@@ -1,4 +1,4 @@
-package com.example.projetojavafx;
+package com.example.projetojavafx.model;
 
 import java.io.Serial;
 import java.io.Serializable;

@@ -1,6 +1,6 @@
 package com.example.projetojavafx.service;
 
-import com.example.projetojavafx.Department;
+import com.example.projetojavafx.model.Department;
 
 import java.util.ArrayList;
 import java.util.List;

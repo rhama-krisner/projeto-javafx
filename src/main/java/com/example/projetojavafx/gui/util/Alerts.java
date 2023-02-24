@@ -1,4 +1,4 @@
-package com.example.projetojavafx.util;
+package com.example.projetojavafx.gui.util;
 
 import javafx.scene.control.Alert;
 

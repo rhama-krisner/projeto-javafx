@@ -1,7 +1,8 @@
-package com.example.projetojavafx;
+package com.example.projetojavafx.gui;
 
+import com.example.projetojavafx.Application;
 import com.example.projetojavafx.service.DepartmentService;
-import com.example.projetojavafx.util.Alerts;
+import com.example.projetojavafx.gui.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -59,7 +60,7 @@ public class MainViewController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             VBox newVBox = loader.load();
 
-            Scene mainScene = MainApplication.getMainScene();
+            Scene mainScene = Application.getMainScene();
             VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
 
             Node mainMenu = mainVBox.getChildren().get(0);
